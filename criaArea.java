@@ -1,14 +1,8 @@
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+/// Class responsible to creating the total area and mark the mina's positions
 import java.util.ArrayList;
 
-import java.util.Scanner;
-
-public class LerAquivoTexto {
-    private static ArrayList<String> arquivo = new ArrayList<>();
+public class criaArea {
     private static int sizeLine = 0;
     private static int sizeColum = 0;
     private static int quantMinas = 0;
@@ -17,58 +11,34 @@ public class LerAquivoTexto {
     private static int x = 0;
     private static int y = 0;
 
-    public void LerAquivo() {
-
-        /// Get path to read the case
-        String currDir = Paths.get("src/casos").toAbsolutePath().toString();
-        String nameComplete = currDir + "\\" + "caso01.txt";
-        Path path = Paths.get(nameComplete);
-
-        String linha;
-
-        ///  Using scanner to read
-        try (Scanner sc = new Scanner(Files.newBufferedReader(path, StandardCharsets.UTF_8))) {
-            while (sc.hasNextLine()) {
-                linha = sc.nextLine();
-                arquivo.add(linha);
-            }
-
-
-        } catch (IOException x) {
-            System.err.format("Erro de E/S: %s%n", x);
-        }
-
-        System.out.println(arquivo);
-        LerAquivoTexto.criarCampo(arquivo);
-    }
-
-
     /// function to creat the field
-    private static void criarCampo(ArrayList<String> arquivo) {
+    public static void criarCampo(ArrayList<String> arquivo) {
         for (int i = 0; i < arquivo.size(); i++) {
             String linha = arquivo.get(i);
 
-            leLinhas(linha, 0, i);
-
+            lerLinhas(linha, 0, i);
 
             /// According to the line, define variables that will be defined
             if( i == 0){
                 campo = new boolean[sizeLine][sizeColum];
                 System.out.println("Linhas: "+sizeLine);
                 System.out.println("Colunas: "+sizeColum);
+                System.out.println("Quantidade de minas no terreno: "+quantMinas);
             }else{
                 System.out.println("X: "+x+" Y: "+y);
-
                 /// With the coordinate, mark the local where there is a bomb
                 campo[x][y] = true;
-                System.out.println(campo[x][y]);
             }
 
         }
+
+        /// Call the method that will be calculated the total area without mina
+        criarCampo.criaCampoRefugiados(campo, sizeLine, sizeColum);
     }
 
+
     /// Read the line and define variables
-    public static void leLinhas(String linha, int tamanho, int controle){
+    public static void lerLinhas(String linha, int tamanho, int controle){
         for (int i = 0; i < linha.length(); i++) {
             caracter = linha.charAt(i);
 
@@ -96,7 +66,4 @@ public class LerAquivoTexto {
         }
 
     }
-
 }
-
-
