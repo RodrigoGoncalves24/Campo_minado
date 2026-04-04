@@ -10,6 +10,7 @@ public class criaArea {
     private static char caracter;
     private static int x = 0;
     private static int y = 0;
+    private static int currentVariable = 0; /// define if x or y will be defined based on ' ' in String
 
     /// function to creat the field
     public static void criarCampo(ArrayList<String> arquivo) {
@@ -25,7 +26,6 @@ public class criaArea {
                 System.out.println("Colunas: "+sizeColum);
                 System.out.println("Quantidade de minas no terreno: "+quantMinas);
             }else{
-                System.out.println("X: "+x+" Y: "+y);
                 /// With the coordinate, mark the local where there is a bomb
                 campo[x][y] = true;
             }
@@ -44,6 +44,7 @@ public class criaArea {
 
             if(caracter == ' '){
                 tamanho = 0;
+                x = currentVariable;
                 continue;
             }else if (caracter == '0') {
                 tamanho *= 10;
@@ -59,11 +60,11 @@ public class criaArea {
                 else if (i >= 4 && i < 7) sizeColum = tamanho;
                 else if (i >= 8) quantMinas = tamanho;
             }else{
-                if (i > 0 && i <= 2) x = tamanho;
-                else if(i >= 4 && i <= 5) y = tamanho;
+                currentVariable = tamanho;
             }
 
         }
+        y = currentVariable;
 
     }
 }

@@ -4,6 +4,8 @@ public class main {
 
         lerAquivoTexto arquivo = new lerAquivoTexto();
 
+
+
         arquivo.LerAquivo();
     }
 }
