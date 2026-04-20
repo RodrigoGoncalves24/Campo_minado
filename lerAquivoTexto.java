@@ -34,7 +34,6 @@ public class lerAquivoTexto {
             System.err.format("Erro de E/S: %s%n", x);
         }
 
-        System.out.println(arquivo);
         criaArea.criarCampo(arquivo);
     }
 
